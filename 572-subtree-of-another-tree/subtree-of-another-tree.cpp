@@ -15,46 +15,27 @@ public:
         if(subRoot==NULL){
             return true;
         }
-        if(root==NULL) return false;
-        queue<TreeNode*>q;
-        find(root,subRoot,q);
-        if(q.empty()){
-            return false;
-        }else{
-            while(!q.empty()){
-                if(check(q.front(),subRoot)==true){
-                    return true;
-                }else{
-                    q.pop();
-                }
-            }
-            return false;
-        }
-    }
-
-    queue<TreeNode*> find(TreeNode* root,TreeNode* subRoot,queue<TreeNode*>&q){
         if(root==NULL){
-            return q;
+            return false;
         }
-        if(root->val==subRoot->val){
-             q.push(root);
+        
+             if(check(root,subRoot)){
+                return true;
+             
         }
-        find(root->left,subRoot,q);
-        find(root->right,subRoot,q);
-        return q;
+        return isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot);
     }
 
     bool check(TreeNode* root,TreeNode* subRoot){
-        if(root==NULL&&subRoot==NULL){
+        if(root==NULL && subRoot==NULL){
             return true;
         }
-        if(root==NULL || subRoot==NULL){
+        if(root==nullptr || subRoot==NULL){
             return false;
         }
         if(root->val!=subRoot->val){
             return false;
         }
-        return check(root->left,subRoot->left)&&check(root->right,subRoot->right);
+        return check(root->left,subRoot->left)&& check(root->right,subRoot->right);
     }
-
 };
